@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="appCliente">
+<head>
+<meta charset="UTF-8"/>
+<title>Minha Pagina</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="./js/app.js"></script>
+</head>
+<body ng-controller="indexController">
+
+Oi {{ nome + ' ' + sobrenome }}
+
+<div ng-repeat = "cli in clientes">
+	{{cli.id + '-' +cli.nome}}
+</div>
+
+</body>
+</html>
