@@ -32,12 +32,24 @@ public class ClienteController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/clientes", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Cliente>> cadastrarCliente() {
+	public ResponseEntity<Collection<Cliente>> buscarTodosClientes() {
 
 		Collection<Cliente> clientesBuscados = clienteService.buscarTodos();
 
 		return new ResponseEntity<>(clientesBuscados, HttpStatus.OK);
 
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "clientes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> buscarClientePorId(@PathVariable Long id){
+
+		Optional<Cliente> cliente = clienteService.buscarPorId(id);
+
+		if (cliente == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/clientes/{id}")

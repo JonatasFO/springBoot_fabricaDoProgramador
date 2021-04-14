@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html ng-app="appCliente">
 <head>
+<base href="/"/>
 <meta charset="UTF-8"/>
 <title>Minha Pagina</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
 <script src="./js/app.js"></script>
+<script src="./js/controller/main-controller.js"></script>
+<script src="./js/controller/cliente-controller.js"></script>
+<script src="./js/controller/cliente-detalhe-controller.js"></script>
+<script src="./js/controller/estado-controller.js"></script>
+<script src="./js/controller/cidade-controller.js"></script>
 </head>
-<body ng-controller="indexController">
+<body ng-controller="mainController">
+Ola eu sou um template!
 
-Oi {{ cliente.nome }} <br/>
+<a href="/clientes">Clientes</a> |
+<a href="/cidades">Cidades</a> |
+<a href="/estados">Estados</a>
+<br/>
 
+Path: {{$location.path()}} <br />
+Template: {{$route.current.templateUrl}} <br />
+Parametros: {{$routeParams}}
 
-<input type="text" ng-model="cliente.nome" />
-<input type="button" value="Salvar" ng-click="salvarCliente()" />
-<input type="button" value="Cancelar" ng-click="cancelarAlteracaoCliente()" />
+<div ng-view="ng-view">
 
-<div ng-repeat = "cli in clientes">
-	{{cli.id + '-' +cli.nome}}
-	<input type="button" value="Excluir" ng-click="excluirCliente(cli)">
-	<input type="button" value="Alterar" ng-click="alterarCliente(cli)">
 </div>
+
+
 
 </body>
 </html>
