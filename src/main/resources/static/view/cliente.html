@@ -1,10 +1,60 @@
-<div>
-	Oi {{ cliente.nome }} <br/>
+<style>
 
-	<input type="text" ng-model="cliente.nome" />
-	<input type="button" value="Salvar" ng-click="salvarCliente()" />
-	<input type="button" value="Cancelar" ng-click="cancelarAlteracaoCliente()" />
-	
+fieldset {
+	display: inline;
+}
+
+</style>
+
+<div>
+
+	<form novalidate name="frmCliente">
+		<div>
+			<label>Nome: </label>
+			<input type="text" ng-minlength="3" ng-maxlength="10" ng-model="cliente.nome" name="txtNome" required />
+			<span ng-show="frmCliente.txtNome.$error.required && frmCliente.txtNome.$dirty">Campo Nome obrigatório</span>
+		</div>
+
+		<div>
+			<label>E-mail: </label>
+			<input type="email" ng-model="cliente.email" name="txtEmail" required />
+			<span ng-show="frmCliente.txtEmail.$error.required && frmCliente.txtEmail.$dirty">Campo E-mail obrigatório</span>
+			<span ng-show="frmCliente.txtEmail.$error.email">E-mail incorreto</span>
+		</div>
+
+		<input type="button" value="Salvar" ng-click="salvarCliente()" ng-disabled="frmCliente.$invalid" />
+		<input type="button" value="Cancelar" ng-click="cancelarAlteracaoCliente()" ng-disabled="frmCliente.$invalid" />
+
+		<div>
+			<fieldset>
+				<legend>Formulário</legend>
+				Valid: {{frmCliente.$valid}}
+			</fieldset>
+
+			<fieldset>
+				<legend>Nome</legend>
+				Valid: {{frmCliente.txtNome.$valid}} <br />
+				Invalid: {{frmCliente.txtNome.$invalid}} <br />
+				Pristine: {{frmCliente.txtNome.$pristine}} <br />
+				Dirty: {{frmCliente.txtNome.$dirty}} <br />
+				Touched: {{frmCliente.txtNome.$touched}} <br />
+				Error Required: {{frmCliente.txtNome.$error.required}} <br />
+				Error Min Length: {{frmCliente.txtNome.$error.minlength}} <br />
+				Error Max Length: {{frmCliente.txtNome.$error.maxlength}}
+			</fieldset>
+
+			<fieldset>
+				<legend>E-mail</legend>
+				Valid: {{frmCliente.txtEmail.$valid}}
+				Invalid: {{frmCliente.txtEmail.$invalid}}
+				Pristine: {{frmCliente.txtEmail.$pristine}}
+				Dirty: {{frmCliente.txtEmail.$dirty}}
+				Touched: {{frmCliente.txtEmail.$touched}}
+			</fieldset>
+		</div>
+
+	</form>
+
 	<div ng-repeat = "cli in clientes">
 		{{cli.id + '-' +cli.nome}}
 		<input type="button" value="Excluir" ng-click="excluirCliente(cli)">
